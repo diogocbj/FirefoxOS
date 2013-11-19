@@ -1,0 +1,18 @@
+{
+  "version": "3",
+  "name": "YouTube Player",
+  "launch_path": "/index.html",
+  "description": "Trabalho de Tópicos Avançado",
+  "icons": {
+    "128": "/images/logo.png"
+  },
+  "developer": {
+    "name": "André Luiz",
+    "url": "https://www.facebook.com/andrelgd"
+  },
+  "installs_allowed_from": ["*"],
+  "permissions": {
+    "systemXHR": {}
+  },
+  "type": "privileged"
+}

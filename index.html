@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html ng-app="youtubeApp">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/headers.css">
+<link rel="stylesheet" href="css/input_areas.css">
+<link rel="stylesheet" href="css/util.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/cross_browser.css">
+<link rel="stylesheet" href="css/drawer.css">
+<link rel="stylesheet" href="css/style.css">
+<title>YouTube Player</title>
+
+</head>
+<body ng-controller="YoutubeController" ng-init="carregarStorage()">
+
+<section id="index" data-position="current">
+  <section data-type="sidebar">
+    <header>
+      <menu type="toolbar">
+        <a href="#">Fechar</a>
+      </menu>
+      <h1>Menu</h1>
+    </header>
+    <nav>
+      <h2>Pesquisa / Video Player</h2>
+      <ul>
+        <li>
+          <a href="#" ng-click="setInicioApp()">Inicio / Pesquisar</a>
+        </li>
+        <li>
+          <a href="#" ng-click="setTelaResultado()">Resultado Pesquisa</a>
+        </li>
+        <li>
+          <a href="#" ng-click="setTelaPlayer()">Video Player</a>
+        </li>
+      </ul>
+      <h2>Histórico</h2>
+      <ul>
+        <li>
+          <a href="#" ng-click="setTelaHistorico()">30 Últimos Visto</a>
+        </li>
+        <li>
+          <a href="#" ng-click="setTelaPesquisa()">Pesquisas</a>
+        </li>
+      </ul>
+      <h2>Configuração</h2>   
+      <ul>
+        <li>
+          <a href="#" ng-click="setTelaConfig()">Apagar Informações</a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+
+  <section id="drawer" role="region">
+    <header class="fixed">
+      <a href="#">
+        <span class="icon icon-menu">hide sidebar</span>
+      </a>
+      <a href="#drawer">
+        <span class="icon icon-menu">show sidebar</span>
+      </a>
+      <h1>YouTube Player</h1>
+    </header>
+
+    <!-- Tela de Inicio do Aplicativo -->
+    <article ng-show="inicioApp" class="content scrollable header">
+      <form class="form-search">
+        <section>
+          <input type="text" class="input-medium search-query" autofocus="" autocomplete="off" ng-model="campoPesquisa" id="campoPesquisa" placeholder="Pesquisa" >
+          <button ng-click="pesquisarVideos()">Pesquisar</button>
+          <button ng-click="setTelaHistorico()">Histórico</button>
+        </section>
+       </form>
+    </article>
+
+    <!-- Tela do Video Player -->
+    <article ng-show="telaPlayer" class="content scrollable header">
+      <form>
+        <section>          
+            <div id="videoContainer">
+              <button ng-click="setInicioApp()">Voltar</button> 
+            </div>             
+        </section>
+      </form>
+    </article>
+
+    <!-- Tela de Resultados -->
+    <article ng-show="telaResultado" class="content scrollable header">
+      <form>
+        <section>          
+            <div>
+              <p ng-show="campoPesquisa">Resultados de {{campoPesquisa}}</p>
+              <div>
+                <ul>
+                    <li ng-repeat="resultado in resultados">                                       
+                        <a ng-click="carregarVideo(resultado.nomeVideo, resultado.idVideo)"><img src="images/play.png"> {{resultado.nomeVideo}}</a>
+                    </li>
+                </ul>
+              </div>              
+            </div>              
+        </section>
+      </form>
+    </article>
+
+    <!-- Tela de Historico -->
+    <article ng-show="telaHistorico" class="content scrollable header">
+      <form>
+        <section>          
+            <div>
+              <p>Histórico</p>
+              <div>
+                <ul>
+                    <li ng-repeat="linha in historico">                                           
+                        <a ng-click="carregarVideo('noAddHist', linha.idVideo)"><img src="images/playhist.png"> {{linha.nomeVideo}}</a>
+                    </li>
+                </ul>
+              </div>              
+            </div>              
+        </section>
+      </form>
+    </article>
+
+    <!-- Tela de Pesquisas -->
+    <article ng-show="telaPesquisa" class="content scrollable header">
+      <form>
+        <section>          
+            <div>
+              <p>Pesquisas</p>
+              <div>
+                <ul>
+                    <li ng-repeat="linha in pesquisas">                                           
+                        <a ng-click="pesquisarVideosParametro(linha.nomePesquisa)"><img src="images/search.png"> {{linha.nomePesquisa}}</a>
+                    </li>
+                </ul>
+              </div>              
+            </div>              
+        </section>
+      </form>
+    </article>
+
+    <!-- Tela de Configuração -->
+    <article ng-show="telaConfig" class="content scrollable header">
+      <form>
+        <section>          
+            <div>
+              <p>Opções</p>
+              <button ng-click="limparHistorico()">Limpar Histórico</button>
+              <button ng-click="limparPesquisa()">Limpar Pesquisas</button>           
+            </div>              
+        </section>
+      </form>
+    </article>
+
+  </section>
+</section>
+
+<script src="js/vendor/angular.min.js"></script>
+<script src="js/youtubeApp.js"></script>
+<script src="js/controllers/YoutubeController.js"></script>
+
+</body>
+</html>
